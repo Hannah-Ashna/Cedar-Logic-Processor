@@ -1,0 +1,50 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 04/04/2020 15:22:25
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :Capitalise
+00000000                             3  * Written by :R.J.Cant
+00000000                             4  * Date       :14/04/203
+00000000                             5  * Description:Assembly language implemetation of the capitalise program
+00000000                             6  *-----------------------------------------------------------
+00000000                             7  *Note that the help facility includes an ascii chart that can be used to find the numerical values of ascii codes
+00000000                             8  *Using this chart we find that 'A' =$41 ($ means hex) and 'a' =$61 so 'A'-'a'= -$20=$E0. Also 'z'=$7A
+00001000                             9          ORG     $1000
+00001000                            10  START:                          ; first instruction of program
+00001000                            11  
+00001000                            12  
+00001000                            13  
+00001000                            14  
+00001000  41F9 00001028             15          LEA     testdata,A0     ; Loads testdata into A0
+00001006  4A10                      16  nxtch:  tst.b   (A0)            ; testdata[i] = 0
+00001008  6700 001C                 17          BEQ     finish          ; If true, jump to finish --> this is the while(testdata[i] !=0) line
+0000100C  1010                      18          MOVE.B  (A0),D0         ; Moves the current character from A0 to D0
+0000100E  B03C 0061                 19          CMP.B   #$61,D0         ; Compares the value in D0 to 'a'  (testdata character - 'a'), if it is a Capital character then the N flag is set
+00001012  6D00 000E                 20          BLT     update          ; Branch to update if the result is less than --> When it fails to fulfill this if statement's condition if (testdata[i]>='a')
+00001016  B03C 007A                 21          CMP.B   #$7A,D0         ; Compares the value from D0 to 'z' (test data character - 'z'), if it is a Capital character then the N flag is set
+0000101A  6E00 0006                 22          BGT     update          ; Branch to update if the result is greater than --> When it fails to fulfill this if statement's condition if (testdata[i]<='z')
+0000101E  0600 00E0                 23          ADD.B   #$E0,D0         ; Convert the lower case value to upper case --> testdata[i]=testdata[i]+ 'A'-'a';
+00001022  10C0                      24  update  MOVE.B  D0,(A0)+        ; Move on to the next character in the string --> Increment the counter by 1 (i++)
+00001024  60E0                      25          bra     nxtch           ; Branch back to nxtch to repeat the checking process --> Continue the while loop
+00001026                            26  finish: 
+00001026  4E4F                      27          TRAP    #15             ; halt simulator
+00001028                            28  
+00001028                            29  * Variables and Strings
+00001028= 6D 54 68 69 73 20 ...     30  testdata:       dc.b 'mThis is a test string',0      ; Declaration of the variable that stores the string --> char testdata[100] = "This is a test string"
+0000103F                            31  
+0000103F                            32  
+0000103F                            33          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+FINISH              1026
+NXTCH               1006
+START               1000
+TESTDATA            1028
+UPDATE              1022

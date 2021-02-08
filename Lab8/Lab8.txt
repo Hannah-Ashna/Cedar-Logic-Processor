@@ -1,0 +1,10 @@
+and.l - Performs the logical operation same as AND except that the source is an immediate value.
+divu - The instruction divides an unsigned data register with an operand specified as an effective address.
+swap - The instruction swaps the upper word with the lower word in a data register (bit 31-16 is exchanged with bit 15-0).
+addq.w - This instruction adds a three bit immediate value to an effective address. The instruction is very quick and much shorter than the usual ADD.
+cmp - Compares a data register with an effective address.
+beq - Branch Equal -> Branch is the Z-flag is 1.
+bhi - Branch Higher than - Branch if both C and Z are 0.
+blo - Branch Higher than - Branch if both C and Z are 1.
+bra - Branch if the C flag is 0.
+EQU - Links a name (label) to a value.
